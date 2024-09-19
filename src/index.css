@@ -10,3 +10,27 @@ body {
 * {
   box-sizing: border-box;
 }
+
+.cell {
+  width: 30px;
+  height: 30px;
+}
+
+.water {
+  background-color: skyblue;
+}
+
+.leaf {
+  background-color: green;
+  border-radius: 100%;
+}
+
+.start {
+  background-color: blue;
+  border-radius: 100%;
+}
+
+.end {
+  background-color: red;
+  border-radius: 100%;
+}

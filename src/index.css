@@ -4,7 +4,7 @@
 
 body {
   margin: 0;
-  padding: 20px;
+  padding: 10px;
 }
 
 * {
@@ -33,4 +33,15 @@ body {
 .end {
   background-color: red;
   border-radius: 100%;
+}
+
+.lake {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+}
+
+table {
+  width: 600px;
+  border-spacing: 0px;
 }

@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 
 import Cell from "./Cell";
-import { CellInfo, CellType } from "../libs/type";
+import { CellInfo, CellType, Position } from "../libs/type";
 import { ROWS, COLS } from "../libs/constant";
 
 interface Lake {
@@ -10,6 +10,33 @@ interface Lake {
 
 const Lake = ({ leaves }: Lake) => {
   const [lake, setLake] = useState<CellInfo[][]>([]);
+  const frogPos = useRef<Position>({ row: ROWS - 1, col: 0 });
+
+  const onKeyDown = useCallback((event: KeyboardEvent) => {
+    if ([" ", "ArrowLeft", "ArrowRight"].includes(event.key)) {
+      event.stopPropagation();
+      event.preventDefault();
+
+      switch (event.key) {
+        case "ArrowLeft":
+          setLake((prev) => {
+            const newLake = [...prev];
+            const { row, col } = frogPos.current;
+            newLake[row][col].frog = (newLake[row][col].frog + 3) % 4;
+            return newLake;
+          });
+          break;
+        case "ArrowRight":
+          setLake((prev) => {
+            const newLake = [...prev];
+            const { row, col } = frogPos.current;
+            newLake[row][col].frog = (newLake[row][col].frog + 1) % 4;
+            return newLake;
+          });
+          break;
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const newLake = new Array<CellInfo[]>(ROWS);
@@ -35,14 +62,22 @@ const Lake = ({ leaves }: Lake) => {
     setLake(newLake);
   }, [leaves]);
 
+  useEffect(() => {
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [onKeyDown]);
+
   return (
     <div className="lake">
       <table>
         <tbody>
-          {lake.map((row) => (
-            <tr>
-              {row.map((col) => (
-                <td>
+          {lake.map((row, rowIndex) => (
+            <tr key={rowIndex}>
+              {row.map((col, colIndex) => (
+                <td key={colIndex}>
                   <Cell data={col} />
                 </td>
               ))}

@@ -9,3 +9,8 @@ export interface CellInfo {
   type: CellType;
   frog: number;
 }
+
+export interface Position {
+  row: number;
+  col: number;
+}

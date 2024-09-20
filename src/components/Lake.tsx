@@ -212,7 +212,7 @@ const Lake = ({ leaves }: Lake) => {
             {lake.map((row, rowIndex) => (
               <tr key={rowIndex}>
                 {row.map((col, colIndex) => (
-                  <td key={colIndex}>
+                  <td className="water" key={colIndex}>
                     <Cell data={col} />
                   </td>
                 ))}

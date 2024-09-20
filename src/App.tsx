@@ -11,7 +11,13 @@ const App = () => {
   return (
     <div>
       <div>
-        <input type="number" min={2} value={leaves} onChange={onChangeLeaves} />
+        <input
+          type="number"
+          min={2}
+          max={400}
+          value={leaves}
+          onChange={onChangeLeaves}
+        />
       </div>
 
       <Lake leaves={leaves} />

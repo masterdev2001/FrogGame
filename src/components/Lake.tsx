@@ -157,6 +157,42 @@ const Lake = ({ leaves }: Lake) => {
     }
 
     setLake(newLake);
+
+    const queue = [{ row: ROWS - 1, col: 0 }];
+    const visit = new Set();
+    const drow = [0, 0, 1, -1];
+    const dcol = [1, -1, 0, 0];
+
+    visit.add((ROWS - 1) * COLS);
+    while (queue.length) {
+      const pos = queue[0];
+      if (pos.row === 0 && pos.col === COLS - 1) {
+        break;
+      }
+      queue.shift();
+      for (let i = 0; i < 4; i++) {
+        for (let j = 1; j <= 5; j++) {
+          const newRow = pos.row + drow[i] * j;
+          const newCol = pos.col + dcol[i] * j;
+          if (
+            newRow >= 0 &&
+            newRow < ROWS &&
+            newCol >= 0 &&
+            newCol < COLS &&
+            newLake[newRow][newCol].type !== CellType.Water &&
+            !visit.has(newRow * COLS + newCol)
+          ) {
+            queue.push({ row: newRow, col: newCol });
+            visit.add(newRow * COLS + newCol);
+          }
+        }
+      }
+    }
+    if (queue.length === 0) {
+      if (resultRef.current) resultRef.current.innerText = "Hopeless Game.";
+    } else {
+      if (resultRef.current) resultRef.current.innerText = "";
+    }
   }, [leaves]);
 
   useEffect(() => {

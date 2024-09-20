@@ -134,19 +134,25 @@ const Lake = ({ leaves }: Lake) => {
     for (let i = 0; i < ROWS; i++) {
       newLake[i] = new Array<CellInfo>(COLS);
       for (let j = 0; j < COLS; j++) {
-        newLake[i][j] = { type: CellType.Water, frog: -1 };
+        newLake[i][j] = {
+          type: leaves <= 200 ? CellType.Water : CellType.Leaf,
+          frog: -1,
+        };
       }
     }
 
     newLake[0][COLS - 1].type = CellType.End;
     newLake[ROWS - 1][0].type = CellType.Start;
     newLake[ROWS - 1][0].frog = 0;
-    for (let i = 0; i < leaves - 2; ) {
+    for (let i = 0; i < (leaves <= 200 ? leaves - 2 : 400 - leaves); ) {
       const row = Math.floor(Math.random() * (ROWS - 1));
       const col = Math.floor(Math.random() * (COLS - 1));
-      if (newLake[row][col].type === CellType.Water) {
+      if (
+        newLake[row][col].type ===
+        (leaves <= 200 ? CellType.Water : CellType.Leaf)
+      ) {
         i++;
-        newLake[row][col].type = CellType.Leaf;
+        newLake[row][col].type = leaves <= 200 ? CellType.Leaf : CellType.Water;
       }
     }
 

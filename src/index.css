@@ -4,9 +4,44 @@
 
 body {
   margin: 0;
-  padding: 20px;
+  padding: 10px;
 }
 
 * {
   box-sizing: border-box;
+}
+
+.cell {
+  width: 30px;
+  height: 30px;
+}
+
+.water {
+  background-color: skyblue;
+}
+
+.leaf {
+  background-color: green;
+  border-radius: 100%;
+}
+
+.start {
+  background-color: blue;
+  border-radius: 100%;
+}
+
+.end {
+  background-color: red;
+  border-radius: 100%;
+}
+
+.lake {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+table {
+  width: 600px;
 }
